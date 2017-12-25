@@ -30,19 +30,18 @@ using System.Threading.Tasks;
 
 namespace AXBusiness.D365MetaExplorer.Core
 {
-    public class MetaDataStore
+    /// <summary>
+    /// Exception raised by the Core library by it's own. It's intended to provide the exception message to the user.
+    /// </summary>
+    public class CoreCommonException : ApplicationException
     {
-        public string OriginLocation { get; private set; }
-        public List<Package> Packages { get; private set; }
-
-
-        public MetaDataStore()
+        public CoreCommonException() : this("")
         {
-            Packages = new List<Package>();
         }
-        public MetaDataStore(string path) : this()
+
+        public CoreCommonException(string message) : base(message)
         {
-            OriginLocation = path;
         }
+
     }
 }

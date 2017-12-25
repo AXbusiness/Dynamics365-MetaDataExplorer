@@ -1,5 +1,6 @@
 # Dynamics365-MetaDataExplorer
 (c) 2017, Stefan Ebert
+
 Explore, validate and visualize Metadata of a *"Microsoft Dynamics 365 for Operations"* packages folder.
 
 # Purpose
@@ -49,3 +50,6 @@ During the implementation, I'll "check" the progress to see this board as the cu
 # Environment
 IDE used is **Visual Studio 2017**.
 Programming language is C#.
+
+## License
+Licensed under the [MIT](LICENSE) License.

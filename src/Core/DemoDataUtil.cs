@@ -35,11 +35,39 @@ namespace AXBusiness.D365MetaExplorer.Core
     /// </summary>
     public static class DemoDataUtil
     {
-        public static MetaDataStore GetModelStore(int selection)
+        /// <summary>
+        /// Creates a demo data modelstore without accessing any file.
+        /// </summary>
+        /// <param name="numPackages">Specified the maximum number of packages contained in the metadata.</param>
+        /// <returns></returns>
+        public static MetaDataStore GetModelStore(int numPackages)
         {
             MetaDataStore store = new MetaDataStore();
 
-            // TODO: Generate some demo data
+            Package p1 = new Package("System Base");
+            p1.Models.Add(new Model("ModelBase1") { DisplayName = "Model Base-1" });
+            p1.Models.Add(new Model("ModelBase2") { DisplayName = "Model Base-2" });
+            store.Packages.Add(p1);
+
+            if (numPackages >= 2)
+            {
+                Package p2 = new Package("System Foundation");
+                p2.Models.Add(new Model("ModelFound1") { DisplayName = "Model Foundation-1" });
+                p2.Models.Add(new Model("ModelFound2") { DisplayName = "Model Foundation-2" });
+                store.Packages.Add(p2);
+            }
+
+            if (numPackages >= 3)
+            {
+                Package p3 = new Package("System Suite");
+                p3.Models.Add(new Model("ModelSuite1") { DisplayName = "Model Suite-1" });
+                p3.Models.Add(new Model("ModelSuite2") { DisplayName = "Model Suite-2" });
+                p3.Models.Add(new Model("ModelSuite3") { DisplayName = "Model Suite-3" });
+                p3.Models.Add(new Model("ModelSuite4") { DisplayName = "Model Suite-4" });
+                store.Packages.Add(p3);
+            }
+
+            // TODO: Generate some references
 
             return store;
         }

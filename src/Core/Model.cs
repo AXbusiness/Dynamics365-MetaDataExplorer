@@ -32,5 +32,22 @@ namespace AXBusiness.D365MetaExplorer.Core
 {
     public class Model
     {
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
+        string OriginLocation { get; set; }
+        public List<ModuleReference> ModuleReferences { get; private set; }
+        public List<ModelReference> ModelReferences { get; private set; }
+
+
+        public Model(string name)
+        {
+            Name = name;
+            DisplayName = "";
+            Description = "";
+            OriginLocation = "";
+            ModuleReferences = new List<ModuleReference>();
+            ModelReferences = new List<ModelReference>();
+        }
     }
 }

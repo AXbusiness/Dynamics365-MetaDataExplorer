@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AXBusiness.D365MetaExplorer.Core;
 
 namespace AXBusiness.D365MetaExplorer.Console
 {
@@ -34,6 +35,38 @@ namespace AXBusiness.D365MetaExplorer.Console
     {
         static void Main(string[] args)
         {
+            try
+            {
+                Run(args);
+            }
+            catch (CoreCommonException ex)
+            {
+                System.Console.WriteLine("*ERROR*: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine("*ERROR*: " + ex.Message);
+                System.Console.WriteLine(ex.ToString());
+            }
+        }
+
+        private static void Run(string[] args)
+        {
+            // For now, lets assume the modelstore path is provided as first and only argument. If left out, switch to demo data mode
+            MetaDataStore m;
+            if (args.Count() > 0)
+            {
+                string path = args[0];
+                m = MetaDataStoreLoader.Load(path);
+                System.Console.WriteLine("Finished loading modelstore from " + path);
+            }
+            else
+            {
+                m = DemoDataUtil.GetModelStore(3);
+                System.Console.WriteLine("Demo data modelstore loaded.");
+            }
+
+            System.Console.WriteLine("Contained packages: " + m.Packages.Count().ToString());
         }
     }
 }

@@ -32,5 +32,16 @@ namespace AXBusiness.D365MetaExplorer.Core
 {
     public class Package
     {
+        string AssemblyName { get; set; }
+        public List<Model> Models { get; private set; }
+        string OriginLocation { get; set; }
+
+
+        public Package(string assemblyName)
+        {
+            AssemblyName = assemblyName;
+            Models = new List<Model>();
+            OriginLocation = "";
+        }
     }
 }

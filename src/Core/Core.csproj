@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CoreCommonException.cs" />
     <Compile Include="DemoDataUtil.cs" />
     <Compile Include="MetaDataStore.cs" />
     <Compile Include="MetaDataStoreLoader.cs" />

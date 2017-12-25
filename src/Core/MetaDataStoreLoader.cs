@@ -30,7 +30,25 @@ using System.Threading.Tasks;
 
 namespace AXBusiness.D365MetaExplorer.Core
 {
-    public class MetaDataStoreLoader
+    public static class MetaDataStoreLoader
     {
+        public static MetaDataStore Load(string path)
+        {
+            MetaDataStore m = new MetaDataStore(path);
+            if (!System.IO.Directory.Exists(path))
+            {
+                throw new CoreCommonException("Provided path could not be read.");
+            }
+
+            // TODO: Implement reading the folder structure
+
+
+            // For each top level folder (package)
+            // ... Find the descriptor subfolder
+            // ... Search for xml files which are model descriptors
+            // ... check (quick / complete) the model implementation directory
+
+            return m;
+        }
     }
 }
