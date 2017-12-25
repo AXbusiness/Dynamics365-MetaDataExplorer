@@ -40,6 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DemoDataUtil.cs" />
+    <Compile Include="MetaDataStore.cs" />
+    <Compile Include="MetaDataStoreLoader.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="ModelReference.cs" />
+    <Compile Include="ModuleReference.cs" />
+    <Compile Include="Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
