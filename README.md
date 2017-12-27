@@ -13,7 +13,7 @@ At time of project ramp-up, I see following implementation steps.
 ## MS1 - Project setup
 - [x] Build project template.
 - [x] Prototype some core classes for demo data usage.
-- [ ] Have a debug form in UI application to view dump data.
+- [x] Have a debug form in UI application to view dump data.
 
 ## MS2 - Core implementation
 - [ ] Data model implementation.

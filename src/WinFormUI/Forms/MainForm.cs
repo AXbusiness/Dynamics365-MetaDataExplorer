@@ -23,22 +23,39 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using AXBusiness.D365MetaExplorer.Core;
 
 namespace AXBusiness.D365MetaExplorer.WinFormUI
 {
     public partial class MainForm : Form
     {
+        MetaDataStore metaDataStore = null;
+
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void cmdLoad_Click(object sender, EventArgs e)
+        {
+            // TODO: Replace this quick implementation, which is here just for redirecting to DebugForm
+            try
+            {
+                metaDataStore = MetaDataStoreLoader.Load(txtMetaDataStoreLocation.Text);
+
+                DebugForm debugForm = new DebugForm();
+                debugForm.MetaStore = metaDataStore;
+                debugForm.Show(this);
+            }
+            catch (CoreCommonException ex)
+            {
+                MessageBox.Show(ex.Message, "Application error");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "System error");
+            }
         }
     }
 }
