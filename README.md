@@ -12,7 +12,7 @@ At time of project ramp-up, I see following implementation steps.
 
 ## MS1 - Project setup
 - [x] Build project template.
-- [ ] Prototype some core classes for demo data usage.
+- [x] Prototype some core classes for demo data usage.
 - [ ] Have a debug form in UI application to view dump data.
 
 ## MS2 - Core implementation
@@ -30,7 +30,7 @@ At time of project ramp-up, I see following implementation steps.
 - [ ] Search in packages and models.
 
 ## MS4 - Console application implementation
-- [ ] Implement a serialize/deserialize functionality for cachinge between multiple commands.
+- [ ] Implement a serialize/deserialize functionality for caching between multiple commands.
 - [ ] Search for and use a cool command line parser.
 - [ ] Have the "load and validate" operation (which in verbose mode, visualizes to std-output).
 
