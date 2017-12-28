@@ -41,6 +41,8 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
         public DebugForm()
         {
             InitializeComponent();
+            lstPackages.DisplayMember = "AssemblyName";
+            lstModels.DisplayMember = "Name";
         }
 
         private void populatePackages()
@@ -48,7 +50,7 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             lstPackages.Items.Clear();
             foreach (Package p in MetaStore.Packages)
             {
-                lstPackages.Items.Add(p.AssemblyName);
+                lstPackages.Items.Add(p);
             }
             selectedPackage = null;
             txtPackageDetails.Text = "";
@@ -59,7 +61,7 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             lstModels.Items.Clear();
             foreach (Model m in selectedPackage.Models)
             {
-                lstModels.Items.Add(m.Name);
+                lstModels.Items.Add(m);
             }
             selectedModel = null;
             txtModelDetails.Text = "";
@@ -76,7 +78,14 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             txtModelDetails.Text = "Id: " + selectedModel.Id.ToString() + Environment.NewLine +
                 "Name: " + selectedModel.Name + Environment.NewLine +
                 "DisplayName: " + selectedModel.DisplayName + Environment.NewLine +
-                "Description: " + selectedModel.Description;
+                "Description: " + selectedModel.Description + Environment.NewLine +
+
+                "Customization: " + selectedModel.Customization + Environment.NewLine +
+                "Layer: " + selectedModel.Layer + Environment.NewLine +
+                "Locked: " + selectedModel.Locked + Environment.NewLine +
+                "ModelModule: " + selectedModel.ModelModule + Environment.NewLine +
+                "Publisher: " + selectedModel.Publisher + Environment.NewLine +
+                "Version: " + string.Format("{0}.{1}.{2}.{3}", selectedModel.VersionBuild, selectedModel.VersionMajor, selectedModel.VersionMinor, selectedModel.VersionRevision);
         }
 
 
@@ -90,29 +99,21 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
 
         private void lstPackages_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (Package p in MetaStore.Packages)
+            if (lstPackages.SelectedItem != null)
             {
-                if (p.AssemblyName == lstPackages.SelectedItem.ToString())
-                {
-                    selectedPackage = p;
-                    break;
-                }
+                selectedPackage = lstPackages.SelectedItem as Package;
+                populatePackageDetails();
+                populateModels();
             }
-            populatePackageDetails();
-            populateModels();
         }
 
         private void lstModels_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach (Model m in selectedPackage.Models)
+            if (lstModels.SelectedItem != null)
             {
-                if (m.Name == lstModels.SelectedItem.ToString())
-                {
-                    selectedModel = m;
-                    break;
-                }
+                selectedModel = lstModels.SelectedItem as Model;
+                populateModelDetails();
             }
-            populateModelDetails();
         }
     }
 }

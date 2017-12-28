@@ -118,11 +118,53 @@ namespace AXBusiness.D365MetaExplorer.Core
             {
                 m.Id = id;
             }
+            e = root["Customization"];
+            if (e != null)
+            {
+                m.Customization = e.InnerText;
+            }
+            e = root["Layer"];
+            if (e != null)
+            {
+                m.Layer = e.InnerText;
+            }
+            e = root["Locked"];
+            if (e != null)
+            {
+                m.Locked = e.InnerText;
+            }
+            e = root["ModelModule"];
+            if (e != null)
+            {
+                m.ModelModule = e.InnerText;
+            }
+            e = root["Publisher"];
+            if (e != null)
+            {
+                m.Publisher = e.InnerText;
+            }
+            e = root["VersionBuild"];
+            if (e != null)
+            {
+                m.VersionBuild = e.InnerText;
+            }
+            e = root["VersionMajor"];
+            if (e != null)
+            {
+                m.VersionMajor = e.InnerText;
+            }
+            e = root["VersionMinor"];
+            if (e != null)
+            {
+                m.VersionMinor = e.InnerText;
+            }
+            e = root["VersionRevision"];
+            if (e != null)
+            {
+                m.VersionRevision = e.InnerText;
+            }
 
-            // TODO: Query for further, known tags
-            // which are: AppliedUpdates, Customization, InternalsVisibleTo, Layer, Locked, ModelModule, ModelReferences, ModuleReferences, Publisher, VersionXX
-
-            // TODO: Handle both references lists for module and models
+            // TODO: Handle following elements which are lists: AppliedUpdates, ModelReferences, ModuleReferences, InternalsVisibleTo
 
             return m;
         }

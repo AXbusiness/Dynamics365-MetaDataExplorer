@@ -38,9 +38,19 @@ namespace AXBusiness.D365MetaExplorer.Core
         public string Description { get; set; }
         public string OriginLocation { get; set; }
         public string DescriptorFilename { get; set; }
+        public string Customization { get; set; }
+        public string Layer { get; set; }
+        public string Locked { get; set; }
+        public string ModelModule { get; set; }
+        public string Publisher { get; set; }
+        public string VersionBuild { get; set; }
+        public string VersionMajor { get; set; }
+        public string VersionMinor { get; set; }
+        public string VersionRevision { get; set; }
         public List<ModuleReference> ModuleReferences { get; private set; }
         public List<ModelReference> ModelReferences { get; private set; }
-
+        public List<string> AppliedUpdates { get; private set; }  // TODO: Determine data type later
+        public List<string> InternalsVisibleTo { get; private set; }  // TODO: Determine data type later
 
         public Model(string name)
         {
@@ -50,8 +60,19 @@ namespace AXBusiness.D365MetaExplorer.Core
             Description = "";
             OriginLocation = "";
             DescriptorFilename = "";
+            Customization = "";
+            Layer = "";
+            Locked = "";
+            ModelModule = "";
+            Publisher = "";
+            VersionBuild = "";
+            VersionMajor = "";
+            VersionMinor = "";
+            VersionRevision = "";
             ModuleReferences = new List<ModuleReference>();
             ModelReferences = new List<ModelReference>();
+            AppliedUpdates = new List<string>();
+            InternalsVisibleTo = new List<string>();
         }
     }
 }
