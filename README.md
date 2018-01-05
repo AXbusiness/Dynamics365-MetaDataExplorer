@@ -17,14 +17,14 @@ At time of project ramp-up, I see following implementation steps.
 
 ## MS2 - Core implementation
 - [ ] Data model implementation.
-- [ ] File system parser and loader.
+- [x] File system parser and loader.
 - [ ] XML content wrapping into data model.
 - [ ] Quick structure data model (without model elements).
 - [ ] Full structure data model.
 
 ## MS3 - Windows application implementation
-- [ ] Load functionality.
-- [ ] Tree control implementation.
+- [x] Load functionality.
+- [x] Tree control implementation.
 - [ ] Tree node detail implementation.
 - [ ] System/custom filtering.
 - [ ] Search in packages and models.

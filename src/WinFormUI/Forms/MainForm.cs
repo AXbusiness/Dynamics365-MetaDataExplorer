@@ -37,25 +37,140 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             InitializeComponent();
         }
 
+        private void OnMetadataStoreLoaded(MetaDataStore store)
+        {
+            metaDataStore = store;
+            populateTree();
+            showJustPackages();
+            refreshTreeText();
+        }
+
+        private void OnFilterChanged(object sender)
+        {
+            refreshTreeText();
+        }
+
+        private void populateTree()
+        {
+            TV.Nodes.Clear();
+            TreeNode rootNode = new TreeNode("AOT");
+            TV.Nodes.Add(rootNode);
+
+            foreach (Package p in metaDataStore.Packages)
+            {
+                TreeNode nodePackage = new TreeNode();
+                nodePackage.Tag = p;
+                rootNode.Nodes.Add(nodePackage);
+                foreach (Model m in p.Models)
+                {
+                    TreeNode nodeModel = new TreeNode();
+                    nodeModel.Tag = m;
+                    nodePackage.Nodes.Add(nodeModel);
+                }
+            }
+
+            grpFilter.Enabled = true;
+            grpTreeButtons.Enabled = true;
+        }
+
+        private string getTreeTextForPackage(Package package)
+        {
+            return package.AssemblyName;
+        }
+
+        private void refreshTreeText()
+        {
+            // After changing any filter, parse all nodes and re-evaluate the text
+            TreeNode rootNode = TV.Nodes[0];
+            Package package;
+            Model model;
+
+            foreach (TreeNode nodePackage in rootNode.Nodes)
+            {
+                package = null;
+                if (nodePackage.Tag != null && nodePackage.Tag is Package)
+                {
+                    package = (Package)nodePackage.Tag;
+                    nodePackage.Text = getTreeTextForPackage(package);
+                }
+                foreach (TreeNode nodeModel in nodePackage.Nodes)
+                {
+                    model = null;
+                    if (nodeModel.Tag != null && nodeModel.Tag is Model)
+                    {
+                        model = (Model)nodeModel.Tag;
+                        nodeModel.Text = getTreeTextForModel(null, model);
+                    }
+                }
+            }
+        }
+
+        private string getTreeTextForModel(Package package, Model model)
+        {
+            string text = chkShowModelName.Checked ? model.Name : model.DisplayName;
+
+            if (chkShowVersion.Checked)
+            {
+                string version = string.Format("{0}.{1}.{2}.{3}", model.VersionMajor, model.VersionMinor, model.VersionRevision, model.VersionBuild);
+                text = string.Format("{0} ({1})", text, version);
+            }
+
+            return text;
+        }
+
+        private void showJustPackages()
+        {
+            TV.CollapseAll();
+            TV.Nodes[0].Expand();
+        }
+
+
         private void cmdLoad_Click(object sender, EventArgs e)
         {
-            // TODO: Replace this quick implementation, which is here just for redirecting to DebugForm
-            try
+            MetaDataStore store = null;
+            FolderBrowserDialog dlg = new FolderBrowserDialog();
+            dlg.ShowNewFolderButton = false;
+            if (dlg.ShowDialog(this) == DialogResult.OK)
             {
-                metaDataStore = MetaDataStoreLoader.Load(txtMetaDataStoreLocation.Text);
+                string directory = dlg.SelectedPath;
 
-                DebugForm debugForm = new DebugForm();
-                debugForm.MetaStore = metaDataStore;
-                debugForm.Show(this);
+                try
+                {
+                    store = MetaDataStoreLoader.Load(directory);
+                    txtMetaDataStoreLocation.Text = directory;
+                    this.OnMetadataStoreLoaded(store);
+                }
+                catch (CoreCommonException ex)
+                {
+                    MessageBox.Show(ex.Message, "Application error");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "System error");
+                }
             }
-            catch (CoreCommonException ex)
-            {
-                MessageBox.Show(ex.Message, "Application error");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "System error");
-            }
+        }
+
+        private void cmdDebugForm_Click(object sender, EventArgs e)
+        {
+            DebugForm debugForm = new DebugForm();
+            debugForm.MetaStore = metaDataStore;
+            debugForm.Show(this);
+        }
+
+        private void FilterCheckboxes_CheckedChanged(object sender, EventArgs e)
+        {
+            OnFilterChanged(sender);
+        }
+
+        private void cmdExpandPackages_Click(object sender, EventArgs e)
+        {
+            showJustPackages();
+        }
+
+        private void cmdExpandModels_Click(object sender, EventArgs e)
+        {
+            TV.ExpandAll();
         }
     }
 }
