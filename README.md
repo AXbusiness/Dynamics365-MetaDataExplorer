@@ -1,5 +1,5 @@
 # Dynamics365-MetaDataExplorer
-(c) 2017, Stefan Ebert
+(c) 2018, Stefan Ebert
 
 Explore, validate and visualize Metadata of a *"Microsoft Dynamics 365 for Operations"* packages folder.
 

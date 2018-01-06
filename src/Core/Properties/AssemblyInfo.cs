@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stefan Ebert")]
 [assembly: AssemblyProduct("Core")]
-[assembly: AssemblyCopyright("Copyright © 2017 Stefan Ebert")]
+[assembly: AssemblyCopyright("Copyright © 2018 Stefan Ebert")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

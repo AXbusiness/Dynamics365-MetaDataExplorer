@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stefan Ebert")]
 [assembly: AssemblyProduct("WinFormUI")]
-[assembly: AssemblyCopyright("Copyright © SVSCCM01 2017")]
+[assembly: AssemblyCopyright("Copyright © 2018 Stefan Ebert")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
