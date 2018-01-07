@@ -43,7 +43,7 @@
             this.lstPackages.FormattingEnabled = true;
             this.lstPackages.Location = new System.Drawing.Point(15, 25);
             this.lstPackages.Name = "lstPackages";
-            this.lstPackages.Size = new System.Drawing.Size(213, 355);
+            this.lstPackages.Size = new System.Drawing.Size(213, 472);
             this.lstPackages.TabIndex = 0;
             this.lstPackages.SelectedIndexChanged += new System.EventHandler(this.lstPackages_SelectedIndexChanged);
             // 
@@ -70,7 +70,7 @@
             this.lstModels.FormattingEnabled = true;
             this.lstModels.Location = new System.Drawing.Point(251, 25);
             this.lstModels.Name = "lstModels";
-            this.lstModels.Size = new System.Drawing.Size(213, 355);
+            this.lstModels.Size = new System.Drawing.Size(213, 472);
             this.lstModels.TabIndex = 2;
             this.lstModels.SelectedIndexChanged += new System.EventHandler(this.lstModels_SelectedIndexChanged);
             // 
@@ -85,18 +85,18 @@
             // 
             // txtModelDetails
             // 
-            this.txtModelDetails.Location = new System.Drawing.Point(487, 193);
+            this.txtModelDetails.Location = new System.Drawing.Point(487, 120);
             this.txtModelDetails.Multiline = true;
             this.txtModelDetails.Name = "txtModelDetails";
             this.txtModelDetails.ReadOnly = true;
             this.txtModelDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtModelDetails.Size = new System.Drawing.Size(346, 187);
+            this.txtModelDetails.Size = new System.Drawing.Size(346, 377);
             this.txtModelDetails.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(484, 177);
+            this.label4.Location = new System.Drawing.Point(484, 104);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 6;
@@ -109,14 +109,14 @@
             this.txtPackageDetails.Name = "txtPackageDetails";
             this.txtPackageDetails.ReadOnly = true;
             this.txtPackageDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPackageDetails.Size = new System.Drawing.Size(346, 137);
+            this.txtPackageDetails.Size = new System.Drawing.Size(346, 64);
             this.txtPackageDetails.TabIndex = 7;
             // 
             // DebugForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(845, 446);
+            this.ClientSize = new System.Drawing.Size(845, 514);
             this.Controls.Add(this.txtPackageDetails);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtModelDetails);

@@ -36,16 +36,18 @@
             this.cmdDebugForm = new System.Windows.Forms.Button();
             this.cmdImport = new System.Windows.Forms.Button();
             this.grpFilter = new System.Windows.Forms.GroupBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chkShowVersion = new System.Windows.Forms.CheckBox();
             this.chkShowModelName = new System.Windows.Forms.CheckBox();
             this.cmdExpandAll = new System.Windows.Forms.Button();
             this.cmdExpandPackages = new System.Windows.Forms.Button();
             this.grpTreeButtons = new System.Windows.Forms.Panel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtMessages = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.grpTreeButtons.SuspendLayout();
@@ -136,6 +138,56 @@
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = " Filter ";
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(285, 51);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(287, 17);
+            this.checkBox5.TabIndex = 14;
+            this.checkBox5.Text = "TODO: Hide package if no model is currently contained";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(285, 35);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(236, 17);
+            this.checkBox4.TabIndex = 13;
+            this.checkBox4.Text = "TODO: Show model count in package name";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(285, 19);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(186, 17);
+            this.checkBox3.TabIndex = 12;
+            this.checkBox3.Text = "TODO: Show layer in model name";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(9, 67);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(215, 17);
+            this.checkBox2.TabIndex = 11;
+            this.checkBox2.Text = "TODO: Show only customization models";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(9, 51);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(183, 17);
+            this.checkBox1.TabIndex = 10;
+            this.checkBox1.Text = "TODO: Show only system models";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // chkShowVersion
             // 
             this.chkShowVersion.AutoSize = true;
@@ -188,61 +240,31 @@
             this.grpTreeButtons.Size = new System.Drawing.Size(113, 172);
             this.grpTreeButtons.TabIndex = 12;
             // 
-            // checkBox1
+            // label1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 51);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(183, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "TODO: Show only system models";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 565);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(131, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Metadata store messages:";
             // 
-            // checkBox2
+            // txtMessages
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(9, 67);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(215, 17);
-            this.checkBox2.TabIndex = 11;
-            this.checkBox2.Text = "TODO: Show only customization models";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(285, 19);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(186, 17);
-            this.checkBox3.TabIndex = 12;
-            this.checkBox3.Text = "TODO: Show layer in model name";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(285, 35);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(236, 17);
-            this.checkBox4.TabIndex = 13;
-            this.checkBox4.Text = "TODO: Show model count in package name";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(285, 51);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(287, 17);
-            this.checkBox5.TabIndex = 14;
-            this.checkBox5.Text = "TODO: Hide package if no model is currently contained";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.txtMessages.Location = new System.Drawing.Point(12, 581);
+            this.txtMessages.Multiline = true;
+            this.txtMessages.Name = "txtMessages";
+            this.txtMessages.ReadOnly = true;
+            this.txtMessages.Size = new System.Drawing.Size(511, 65);
+            this.txtMessages.TabIndex = 8;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 551);
+            this.ClientSize = new System.Drawing.Size(535, 658);
+            this.Controls.Add(this.txtMessages);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.grpTreeButtons);
             this.Controls.Add(this.grpFilter);
             this.Controls.Add(this.groupBox1);
@@ -255,6 +277,7 @@
             this.grpFilter.PerformLayout();
             this.grpTreeButtons.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -277,6 +300,8 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtMessages;
     }
 }
 

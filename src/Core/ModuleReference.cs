@@ -32,5 +32,13 @@ namespace AXBusiness.D365MetaExplorer.Core
 {
     public class ModuleReference
     {
+        public string Name { get; set; }
+        public Package ReferencedPackage { get; set; }
+
+        public ModuleReference()
+        {
+            Name = "";
+            ReferencedPackage = null;
+        }
     }
 }

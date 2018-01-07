@@ -34,11 +34,13 @@ namespace AXBusiness.D365MetaExplorer.Core
     {
         public string OriginLocation { get; private set; }
         public List<Package> Packages { get; private set; }
+        public List<string> Messages { get; private set; }
 
 
         public MetaDataStore()
         {
             Packages = new List<Package>();
+            Messages = new List<string>();
         }
         public MetaDataStore(string path) : this()
         {

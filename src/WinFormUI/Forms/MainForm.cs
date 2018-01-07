@@ -43,6 +43,7 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             populateTree();
             showJustPackages();
             refreshTreeText();
+            showMessages();
         }
 
         private void OnFilterChanged(object sender)
@@ -103,6 +104,12 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
                     }
                 }
             }
+        }
+
+        private void showMessages()
+        {
+            string lines = string.Join(Environment.NewLine, metaDataStore.Messages);
+            txtMessages.Text = lines;
         }
 
         private string getTreeTextForModel(Package package, Model model)

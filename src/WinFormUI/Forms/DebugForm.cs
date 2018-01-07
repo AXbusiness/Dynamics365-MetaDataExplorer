@@ -75,6 +75,15 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
 
         private void populateModelDetails()
         {
+            string moduleReferences = "";
+            if (selectedModel.ModuleReferences.Count > 0)
+            {
+                foreach (ModuleReference modRef in selectedModel.ModuleReferences)
+                {
+                    moduleReferences += Environment.NewLine + "- Module=" + modRef.Name + "; resolved=" + (modRef.ReferencedPackage == null ? "ERROR" : "ok");
+                }
+            }
+
             txtModelDetails.Text = "Id: " + selectedModel.Id.ToString() + Environment.NewLine +
                 "Name: " + selectedModel.Name + Environment.NewLine +
                 "DisplayName: " + selectedModel.DisplayName + Environment.NewLine +
@@ -85,7 +94,8 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
                 "Locked: " + selectedModel.Locked + Environment.NewLine +
                 "ModelModule: " + selectedModel.ModelModule + Environment.NewLine +
                 "Publisher: " + selectedModel.Publisher + Environment.NewLine +
-                "Version: " + string.Format("{0}.{1}.{2}.{3}", selectedModel.VersionBuild, selectedModel.VersionMajor, selectedModel.VersionMinor, selectedModel.VersionRevision);
+                "Version: " + string.Format("{0}.{1}.{2}.{3}", selectedModel.VersionBuild, selectedModel.VersionMajor, selectedModel.VersionMinor, selectedModel.VersionRevision) + Environment.NewLine +
+                "ModuleReferences: " + moduleReferences;
         }
 
 

@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
@@ -45,6 +46,12 @@ namespace AXBusiness.D365MetaExplorer.Core
                 {
                     m.Packages.Add(p);
                 }
+            }
+
+            string[] referenceErrors = ResolveReferences(m);
+            if (referenceErrors.Length > 0)
+            {
+                m.Messages.AddRange(referenceErrors);
             }
 
             return m;
@@ -164,9 +171,68 @@ namespace AXBusiness.D365MetaExplorer.Core
                 m.VersionRevision = e.InnerText;
             }
 
-            // TODO: Handle following elements which are lists: AppliedUpdates, ModelReferences, ModuleReferences, InternalsVisibleTo
+            // Lists
+            e = root["ModuleReferences"];
+            if (e != null && e.HasChildNodes)
+            {
+                foreach (XmlNode nodeReference in e.ChildNodes)
+                {
+                    ModuleReference r = new ModuleReference { Name = nodeReference.InnerText };
+                    m.ModuleReferences.Add(r);
+                }
+            }
+
+            // TODO: Handle following elements which are lists: AppliedUpdates, ModelReferences, InternalsVisibleTo
 
             return m;
+        }
+
+        /// <summary>
+        /// Method validates, if the name-based module references are present in the metadata store.
+        /// </summary>
+        /// <param name="metaDataStore">The metadata store to be validated.</param>
+        /// <returns>List of validation messages to be presented in user interface.</returns>
+        private static string[] ResolveReferences(MetaDataStore metaDataStore)
+        {
+            List<string> errors = new List<string>();
+            Dictionary<string, Package> packages = GetPackagesList(metaDataStore);
+
+            foreach (Package p in metaDataStore.Packages)
+            {
+                foreach (Model m in p.Models)
+                {
+                    foreach (ModuleReference refModule in m.ModuleReferences)
+                    {
+                        // Task is to resolve existing referenced package name to package instance
+                        if (packages.ContainsKey(refModule.Name))
+                        {
+                            refModule.ReferencedPackage = packages[refModule.Name];
+                        }
+                        else
+                        {
+                            refModule.ReferencedPackage = null;
+                            string error = string.Format("Package {0}, model {1} references module '{2}' which was not found.", p.AssemblyName, m.DisplayName, refModule.Name);
+                            errors.Add(error);
+                        }
+                    }
+                }
+            }
+            return errors.ToArray();
+        }
+
+        /// <summary>
+        /// Retrieve a Dictionary, which contains the 'Package' data type for its name.
+        /// </summary>
+        /// <param name="metaDataStore">The metadata store for which the packages list should be listed.</param>
+        /// <returns>Dictionary with key=package name and value=package data type.</returns>
+        private static Dictionary<string, Package> GetPackagesList(MetaDataStore metaDataStore)
+        {
+            Dictionary<string, Package> packages = new Dictionary<string, Package>();
+            foreach (Package p in metaDataStore.Packages)
+            {
+                packages.Add(p.AssemblyName, p);
+            }
+            return packages;
         }
     }
 }
