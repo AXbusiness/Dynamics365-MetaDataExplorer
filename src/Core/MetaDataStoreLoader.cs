@@ -41,13 +41,14 @@ namespace AXBusiness.D365MetaExplorer.Core
 
             foreach (DirectoryInfo packageDir in new DirectoryInfo(path).EnumerateDirectories())
             {
-                Package p = ReadPackage(packageDir);
+                Package p = ReadPackage(m, packageDir);
                 if (p != null)
                 {
                     m.Packages.Add(p);
                 }
             }
-            m.Messages.Add(new DiagnosticMessage(string.Format("Metadata store was loaded with {0} packages.", m.Packages.Count), DiagnosticMessageType.Information));
+            m.Messages.Add(new DiagnosticMessage(string.Format("Metadata store was loaded with {0} packages.", m.Packages.Count),
+                DiagnosticMessageType.Information));
 
             List<DiagnosticMessage> referenceErrors = ResolveReferences(m);
             if (referenceErrors.Count > 0)
@@ -58,19 +59,23 @@ namespace AXBusiness.D365MetaExplorer.Core
             return m;
         }
 
-        private static Package ReadPackage(DirectoryInfo folder)
+        private static Package ReadPackage(MetaDataStore store, DirectoryInfo folder)
         {
             string descriptorFolder = folder.FullName + "\\Descriptor";
             if (!Directory.Exists(descriptorFolder))
             {
                 // If no 'Descriptor' subfolder exists, the folder is not a package folder
+                store.Messages.Add(new DiagnosticMessage(string.Format("Possible package '{0}' is missing 'Descriptor' subfolder.",
+                    folder.FullName), DiagnosticMessageType.Debug));
                 return null;
+
+                // TODO: Avoid this "error" for well-known folders like [ Datastack, InstallationRecords, Plugins, StaticMetadata ]
             }
 
             Package p = new Package(folder.Name);
             foreach (FileInfo modelFile in new DirectoryInfo(descriptorFolder).EnumerateFiles("*.xml"))
             {
-                Model m = ReadModel(folder.FullName, modelFile);
+                Model m = ReadModel(store, folder.FullName, modelFile);
                 if (m != null)
                 {
                     p.Models.Add(m);
@@ -78,12 +83,15 @@ namespace AXBusiness.D365MetaExplorer.Core
             }
             if (p.Models.Count == 0)
             {
-                // TODO: By having 'Descriptor' folder but not any valid model, notify for a potentional error in structure
+                // By having 'Descriptor' folder but not any valid model, notify for a potentional error in structure
+                store.Messages.Add(new DiagnosticMessage(
+                    string.Format("Package '{0}' has not any model, which may point out error in model structure.",
+                    p.AssemblyName), DiagnosticMessageType.Warning));
             }
             return p;
         }
 
-        private static Model ReadModel(string packageFolder, FileInfo modelFile)
+        private static Model ReadModel(MetaDataStore store, string packageFolder, FileInfo modelFile)
         {
             XmlDocument modelXml = new XmlDocument();
             try
@@ -92,18 +100,27 @@ namespace AXBusiness.D365MetaExplorer.Core
             }
             catch (Exception ex)
             {
-                // TODO: Notify an model descriptor structural error
+                // Notify a structural model descriptor error
+                store.Messages.Add(new DiagnosticMessage(string.Format("Package '{0}': Ignoring model '{1}' due to error by XML loading.",
+                    packageFolder, modelFile.Name), DiagnosticMessageType.Warning));
+                store.Messages.Add(new DiagnosticMessage(string.Format("Package '{0}': XML loading of model '{1}' exception: '{2}'.",
+                    packageFolder, modelFile.Name, ex.Message), DiagnosticMessageType.Debug));
                 return null;
             }
             XmlElement root = modelXml["AxModelInfo"];
             if (root == null)
             {
+                // Notify an model descriptor structural error
+                store.Messages.Add(new DiagnosticMessage(string.Format("Package '{0}': Ignoring model '{1}' due to XML does not contain " +
+                    "the 'AxModelInfo' element.", packageFolder, modelFile.Name), DiagnosticMessageType.Error));
                 return null;
             }
             XmlElement e = root["Name"];
             if (e == null)
             {
-                // TODO: Notify an model descriptor structural error
+                // Notify an model descriptor structural error
+                store.Messages.Add(new DiagnosticMessage(string.Format("Package '{0}': Ignoring model '{1}' due to XML does not contain " +
+                    "the 'Name' element as part of 'AxModelInfo' element.", packageFolder, modelFile.Name), DiagnosticMessageType.Error));
                 return null;
             }
 
@@ -212,8 +229,8 @@ namespace AXBusiness.D365MetaExplorer.Core
                         else
                         {
                             refModule.ReferencedPackage = null;
-                            string error = string.Format("Package {0}, model {1} references module '{2}' which was not found.", p.AssemblyName, m.DisplayName, refModule.Name);
-                            errors.Add(new DiagnosticMessage(error, DiagnosticMessageType.Error));
+                            errors.Add(new DiagnosticMessage(string.Format("Package {0}, model {1} references module '{2}' which was not found.",
+                                p.AssemblyName, m.DisplayName, refModule.Name), DiagnosticMessageType.Error));
                         }
                     }
                 }
