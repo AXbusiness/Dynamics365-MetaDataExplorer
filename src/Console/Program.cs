@@ -62,7 +62,7 @@ namespace AXBusiness.D365MetaExplorer.Console
             }
             else
             {
-                m = DemoDataUtil.GetModelStore(3);
+                m = DemoDataUtil.GetModelStore(3, true);
                 System.Console.WriteLine("Demo data modelstore loaded.");
             }
 

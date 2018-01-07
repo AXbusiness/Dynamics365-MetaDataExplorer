@@ -36,11 +36,12 @@ namespace AXBusiness.D365MetaExplorer.Core
     public static class DemoDataUtil
     {
         /// <summary>
-        /// Creates a demo data modelstore without accessing any file.
+        /// Creates a demo data metadata store without accessing any file.
         /// </summary>
-        /// <param name="numPackages">Specified the maximum number of packages contained in the metadata.</param>
-        /// <returns></returns>
-        public static MetaDataStore GetModelStore(int numPackages)
+        /// <param name="numPackages">Specifies the maximum number of packages contained in the metadata.</param>
+        /// <param name="withErrors">Specifies whether errors should be contained in the data.</param>
+        /// <returns>Demo 'metadata store' data type.</returns>
+        public static MetaDataStore GetModelStore(int numPackages, bool withErrors)
         {
             MetaDataStore store = new MetaDataStore();
 
@@ -55,6 +56,15 @@ namespace AXBusiness.D365MetaExplorer.Core
                 p2.Models.Add(new Model("ModelFound1") { DisplayName = "Model Foundation-1" });
                 p2.Models.Add(new Model("ModelFound2") { DisplayName = "Model Foundation-2" });
                 store.Packages.Add(p2);
+                ModuleReference ref2 = new ModuleReference { Name = p1.AssemblyName, ReferencedPackage = p1 };
+                p2.Models[0].ModuleReferences.Add(ref2);
+                p2.Models[1].ModuleReferences.Add(ref2);
+                if (withErrors)
+                {
+                    ref2 = new ModuleReference { Name = "Some AssemblyName", ReferencedPackage = null };
+                    p2.Models[0].ModuleReferences.Add(ref2);
+                    store.Messages.Add(new DiagnosticMessage("Referencing a unknown module: " + ref2.Name, DiagnosticMessageType.Error));
+                }
             }
 
             if (numPackages >= 3)
@@ -65,9 +75,24 @@ namespace AXBusiness.D365MetaExplorer.Core
                 p3.Models.Add(new Model("ModelSuite3") { DisplayName = "Model Suite-3" });
                 p3.Models.Add(new Model("ModelSuite4") { DisplayName = "Model Suite-4" });
                 store.Packages.Add(p3);
+                ModuleReference ref3 = new ModuleReference { Name = p1.AssemblyName, ReferencedPackage = p1 };
+                p3.Models[0].ModuleReferences.Add(ref3);
+                p3.Models[1].ModuleReferences.Add(ref3);
+                p3.Models[2].ModuleReferences.Add(ref3);
+                p3.Models[3].ModuleReferences.Add(ref3);
+                Package pck2 = store.Packages[1];
+                ref3 = new ModuleReference { Name = pck2.AssemblyName, ReferencedPackage = pck2 };
+                p3.Models[0].ModuleReferences.Add(ref3);
+                p3.Models[2].ModuleReferences.Add(ref3);
             }
 
-            // TODO: Generate some references
+            if (withErrors)
+            {
+                store.Messages.Add(new DiagnosticMessage("Demo error message", DiagnosticMessageType.Error));
+                store.Messages.Add(new DiagnosticMessage("Demo information message", DiagnosticMessageType.Information));
+                store.Messages.Add(new DiagnosticMessage("Demo debug message", DiagnosticMessageType.Debug));
+                store.Messages.Add(new DiagnosticMessage("Demo warning message", DiagnosticMessageType.Warning));
+            }
 
             return store;
         }

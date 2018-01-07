@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AXBusiness.D365MetaExplorer.Core;
 
@@ -108,8 +109,30 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
 
         private void showMessages()
         {
-            string lines = string.Join(Environment.NewLine, metaDataStore.Messages);
-            txtMessages.Text = lines;
+            if (metaDataStore == null)
+            {
+                return;
+            }
+
+            List<string> lines = new List<string>();
+            List<DiagnosticMessageType> orderedTypeList = new List<DiagnosticMessageType>() { DiagnosticMessageType.Error, DiagnosticMessageType.Warning, DiagnosticMessageType.Information };
+            if (chkShowDebugMessages.Checked)
+            {
+                orderedTypeList.Add(DiagnosticMessageType.Debug);
+            }
+
+            // Go through the ordered types list to show most important messages first
+            foreach (DiagnosticMessageType dmt in orderedTypeList)
+            {
+                foreach (DiagnosticMessage msg in metaDataStore.Messages)
+                {
+                    if (dmt == msg.Type)
+                    {
+                        lines.Add(string.Format("{0}: {1}", msg.Type.ToString(), msg.Text));
+                    }
+                }
+            }
+            txtMessages.Text = string.Join(Environment.NewLine, lines);
         }
 
         private string getTreeTextForModel(Package package, Model model)
@@ -178,6 +201,16 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
         private void cmdExpandModels_Click(object sender, EventArgs e)
         {
             TV.ExpandAll();
+        }
+
+        private void chkShowDebugMessages_CheckedChanged(object sender, EventArgs e)
+        {
+            showMessages();
+        }
+
+        private void cmdLoadDemoData_Click(object sender, EventArgs e)
+        {
+            OnMetadataStoreLoaded(DemoDataUtil.GetModelStore(3, true));
         }
     }
 }

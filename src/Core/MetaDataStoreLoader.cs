@@ -47,9 +47,10 @@ namespace AXBusiness.D365MetaExplorer.Core
                     m.Packages.Add(p);
                 }
             }
+            m.Messages.Add(new DiagnosticMessage(string.Format("Metadata store was loaded with {0} packages.", m.Packages.Count), DiagnosticMessageType.Information));
 
-            string[] referenceErrors = ResolveReferences(m);
-            if (referenceErrors.Length > 0)
+            List<DiagnosticMessage> referenceErrors = ResolveReferences(m);
+            if (referenceErrors.Count > 0)
             {
                 m.Messages.AddRange(referenceErrors);
             }
@@ -192,9 +193,9 @@ namespace AXBusiness.D365MetaExplorer.Core
         /// </summary>
         /// <param name="metaDataStore">The metadata store to be validated.</param>
         /// <returns>List of validation messages to be presented in user interface.</returns>
-        private static string[] ResolveReferences(MetaDataStore metaDataStore)
+        private static List<DiagnosticMessage> ResolveReferences(MetaDataStore metaDataStore)
         {
-            List<string> errors = new List<string>();
+            List<DiagnosticMessage> errors = new List<DiagnosticMessage>();
             Dictionary<string, Package> packages = GetPackagesList(metaDataStore);
 
             foreach (Package p in metaDataStore.Packages)
@@ -212,12 +213,12 @@ namespace AXBusiness.D365MetaExplorer.Core
                         {
                             refModule.ReferencedPackage = null;
                             string error = string.Format("Package {0}, model {1} references module '{2}' which was not found.", p.AssemblyName, m.DisplayName, refModule.Name);
-                            errors.Add(error);
+                            errors.Add(new DiagnosticMessage(error, DiagnosticMessageType.Error));
                         }
                     }
                 }
             }
-            return errors.ToArray();
+            return errors;
         }
 
         /// <summary>

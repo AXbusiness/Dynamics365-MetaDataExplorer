@@ -33,6 +33,7 @@
             this.TV = new System.Windows.Forms.TreeView();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmdLoadDemoData = new System.Windows.Forms.Button();
             this.cmdDebugForm = new System.Windows.Forms.Button();
             this.cmdImport = new System.Windows.Forms.Button();
             this.grpFilter = new System.Windows.Forms.GroupBox();
@@ -48,6 +49,7 @@
             this.grpTreeButtons = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMessages = new System.Windows.Forms.TextBox();
+            this.chkShowDebugMessages = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.grpTreeButtons.SuspendLayout();
@@ -89,6 +91,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmdLoadDemoData);
             this.groupBox1.Controls.Add(this.cmdDebugForm);
             this.groupBox1.Controls.Add(this.cmdImport);
             this.groupBox1.Controls.Add(this.label2);
@@ -101,9 +104,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Load Metadata store ";
             // 
+            // cmdLoadDemoData
+            // 
+            this.cmdLoadDemoData.Location = new System.Drawing.Point(241, 16);
+            this.cmdLoadDemoData.Name = "cmdLoadDemoData";
+            this.cmdLoadDemoData.Size = new System.Drawing.Size(95, 23);
+            this.cmdLoadDemoData.TabIndex = 8;
+            this.cmdLoadDemoData.Text = "Load demo data";
+            this.cmdLoadDemoData.UseVisualStyleBackColor = true;
+            this.cmdLoadDemoData.Click += new System.EventHandler(this.cmdLoadDemoData_Click);
+            // 
             // cmdDebugForm
             // 
-            this.cmdDebugForm.Location = new System.Drawing.Point(232, 16);
+            this.cmdDebugForm.Location = new System.Drawing.Point(174, 16);
             this.cmdDebugForm.Name = "cmdDebugForm";
             this.cmdDebugForm.Size = new System.Drawing.Size(61, 23);
             this.cmdDebugForm.TabIndex = 7;
@@ -255,14 +268,27 @@
             this.txtMessages.Multiline = true;
             this.txtMessages.Name = "txtMessages";
             this.txtMessages.ReadOnly = true;
+            this.txtMessages.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtMessages.Size = new System.Drawing.Size(511, 65);
             this.txtMessages.TabIndex = 8;
+            // 
+            // chkShowDebugMessages
+            // 
+            this.chkShowDebugMessages.AutoSize = true;
+            this.chkShowDebugMessages.Location = new System.Drawing.Point(387, 564);
+            this.chkShowDebugMessages.Name = "chkShowDebugMessages";
+            this.chkShowDebugMessages.Size = new System.Drawing.Size(136, 17);
+            this.chkShowDebugMessages.TabIndex = 15;
+            this.chkShowDebugMessages.Text = "Show debug messages";
+            this.chkShowDebugMessages.UseVisualStyleBackColor = true;
+            this.chkShowDebugMessages.CheckedChanged += new System.EventHandler(this.chkShowDebugMessages_CheckedChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 658);
+            this.Controls.Add(this.chkShowDebugMessages);
             this.Controls.Add(this.txtMessages);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.grpTreeButtons);
@@ -302,6 +328,8 @@
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMessages;
+        private System.Windows.Forms.CheckBox chkShowDebugMessages;
+        private System.Windows.Forms.Button cmdLoadDemoData;
     }
 }
 

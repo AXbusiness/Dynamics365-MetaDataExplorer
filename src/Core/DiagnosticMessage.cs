@@ -22,28 +22,27 @@
 // SOFTWARE.
 #endregion
 
-using System.Collections.Generic;
+using System;
 
 namespace AXBusiness.D365MetaExplorer.Core
 {
-    /// <summary>
-    /// Data type which reflects a complete metadata store with all properties.
-    /// </summary>
-    public class MetaDataStore
+    public class DiagnosticMessage
     {
-        public string OriginLocation { get; private set; }
-        public List<Package> Packages { get; private set; }
-        public List<DiagnosticMessage> Messages { get; private set; }
+        public string Text { get; set; }
+        public DiagnosticMessageType Type { get; set; }
 
+        public DiagnosticMessage(string text, DiagnosticMessageType type)
+        {
+            Text = text;
+            Type = type;
+        }
+    }
 
-        public MetaDataStore()
-        {
-            Packages = new List<Package>();
-            Messages = new List<DiagnosticMessage>();
-        }
-        public MetaDataStore(string path) : this()
-        {
-            OriginLocation = path;
-        }
+    public enum DiagnosticMessageType
+    {
+        Error,
+        Warning,
+        Information,
+        Debug
     }
 }
