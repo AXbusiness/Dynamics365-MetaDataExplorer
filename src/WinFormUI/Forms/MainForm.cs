@@ -68,6 +68,8 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
                     TreeNode nodeModel = new TreeNode();
                     nodeModel.Tag = m;
                     nodePackage.Nodes.Add(nodeModel);
+
+                    // TODO: Add lists like module references as childs
                 }
             }
 
@@ -77,7 +79,12 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
 
         private string getTreeTextForPackage(Package package)
         {
-            return package.AssemblyName;
+            string text = package.AssemblyName;
+            if (chkShowModelCount.Checked)
+            {
+                text += string.Format(" ({0})", package.Models.Count);
+            }
+            return text;
         }
 
         private void refreshTreeText()

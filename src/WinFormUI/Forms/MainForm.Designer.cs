@@ -38,7 +38,7 @@
             this.cmdImport = new System.Windows.Forms.Button();
             this.grpFilter = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.chkShowModelCount = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -137,7 +137,7 @@
             // grpFilter
             // 
             this.grpFilter.Controls.Add(this.checkBox5);
-            this.grpFilter.Controls.Add(this.checkBox4);
+            this.grpFilter.Controls.Add(this.chkShowModelCount);
             this.grpFilter.Controls.Add(this.checkBox3);
             this.grpFilter.Controls.Add(this.checkBox2);
             this.grpFilter.Controls.Add(this.checkBox1);
@@ -161,15 +161,16 @@
             this.checkBox5.Text = "TODO: Hide package if no model is currently contained";
             this.checkBox5.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // chkShowModelCount
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(285, 35);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(236, 17);
-            this.checkBox4.TabIndex = 13;
-            this.checkBox4.Text = "TODO: Show model count in package name";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.chkShowModelCount.AutoSize = true;
+            this.chkShowModelCount.Location = new System.Drawing.Point(285, 35);
+            this.chkShowModelCount.Name = "chkShowModelCount";
+            this.chkShowModelCount.Size = new System.Drawing.Size(199, 17);
+            this.chkShowModelCount.TabIndex = 13;
+            this.chkShowModelCount.Text = "Show model count in package name";
+            this.chkShowModelCount.UseVisualStyleBackColor = true;
+            this.chkShowModelCount.CheckedChanged += new System.EventHandler(this.FilterCheckboxes_CheckedChanged);
             // 
             // checkBox3
             // 
@@ -325,7 +326,7 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox chkShowModelCount;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtMessages;
         private System.Windows.Forms.CheckBox chkShowDebugMessages;
