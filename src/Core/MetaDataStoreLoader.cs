@@ -151,7 +151,7 @@ namespace AXBusiness.D365MetaExplorer.Core
             e = root["Layer"];
             if (e != null)
             {
-                m.Layer = e.InnerText;
+                m.Layer = new Layer(e.InnerText);
             }
             e = root["Locked"];
             if (e != null)
@@ -200,7 +200,7 @@ namespace AXBusiness.D365MetaExplorer.Core
                 }
             }
 
-            // TODO: Handle following elements which are lists: AppliedUpdates, ModelReferences, InternalsVisibleTo
+            // TODO: Handle following elements which are lists: AppliedUpdates, InternalsVisibleTo
 
             return m;
         }

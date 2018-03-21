@@ -22,11 +22,7 @@
 // SOFTWARE.
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AXBusiness.D365MetaExplorer.Core
 {
@@ -39,7 +35,7 @@ namespace AXBusiness.D365MetaExplorer.Core
         public string OriginLocation { get; set; }
         public string DescriptorFilename { get; set; }
         public string Customization { get; set; }
-        public string Layer { get; set; }
+        public Layer Layer { get; set; }
         public string Locked { get; set; }
         public string ModelModule { get; set; }
         public string Publisher { get; set; }
@@ -61,7 +57,7 @@ namespace AXBusiness.D365MetaExplorer.Core
             OriginLocation = "";
             DescriptorFilename = "";
             Customization = "";
-            Layer = "";
+            Layer = new Layer();
             Locked = "";
             ModelModule = "";
             Publisher = "";

@@ -68,8 +68,6 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
                     TreeNode nodeModel = new TreeNode();
                     nodeModel.Tag = m;
                     nodePackage.Nodes.Add(nodeModel);
-
-                    // TODO: Add lists like module references as childs
                 }
             }
 
@@ -114,6 +112,48 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             }
         }
 
+        private void populateNodeDetails()
+        {
+            tvPackageDetails.Nodes.Clear();
+            tvModelDetails.Nodes.Clear();
+
+            if (TV.SelectedNode != null)
+            {
+                if (TV.SelectedNode.Tag is Package)
+                {
+                    populatePackageDetail(TV.SelectedNode.Tag as Package);
+                }
+                else if (TV.SelectedNode.Tag is Model)
+                {
+                    populateModelDetail(TV.SelectedNode.Tag as Model);
+                }
+            }
+        }
+
+        private void populatePackageDetail(Package p)
+        {
+            tvPackageDetails.Nodes.Add("Package: " + p.AssemblyName);
+            tvPackageDetails.Nodes.Add("Models: " + p.Models.Count.ToString());
+        }
+
+        private void populateModelDetail(Model m)
+        {
+            tvModelDetails.Nodes.Add("Model: " + m.Name);
+            tvModelDetails.Nodes.Add("Display name: " + m.DisplayName);
+            tvModelDetails.Nodes.Add("Id: " + m.Id);
+            tvModelDetails.Nodes.Add("Layer: " + m.Layer.Name);
+
+            TreeNode nodeModuleReferences = new TreeNode("Module references");
+            tvModelDetails.Nodes.Add(nodeModuleReferences);
+            foreach (ModuleReference mRef in m.ModuleReferences)
+            {
+                TreeNode nodeModuleRef = new TreeNode(mRef.Name);
+                nodeModuleRef.Tag = mRef;
+                nodeModuleRef.ToolTipText = "Package: " + mRef.Name;
+                nodeModuleReferences.Nodes.Add(nodeModuleRef);
+            }
+        }
+
         private void showMessages()
         {
             if (metaDataStore == null)
@@ -150,6 +190,11 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
             {
                 string version = string.Format("{0}.{1}.{2}.{3}", model.VersionMajor, model.VersionMinor, model.VersionRevision, model.VersionBuild);
                 text = string.Format("{0} ({1})", text, version);
+            }
+
+            if (chkShowLayer.Checked)
+            {
+                text = string.Format("{0} [{1}]", text, model.Layer.Name);
             }
 
             return text;
@@ -218,6 +263,11 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
         private void cmdLoadDemoData_Click(object sender, EventArgs e)
         {
             OnMetadataStoreLoaded(DemoDataUtil.GetModelStore(3, true));
+        }
+
+        private void TV_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            populateNodeDetails();
         }
     }
 }

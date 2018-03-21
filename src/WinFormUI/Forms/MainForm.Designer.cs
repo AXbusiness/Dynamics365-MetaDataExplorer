@@ -39,7 +39,7 @@
             this.grpFilter = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.chkShowModelCount = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.chkShowLayer = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.chkShowVersion = new System.Windows.Forms.CheckBox();
@@ -50,6 +50,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMessages = new System.Windows.Forms.TextBox();
             this.chkShowDebugMessages = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tvPackageDetails = new System.Windows.Forms.TreeView();
+            this.tvModelDetails = new System.Windows.Forms.TreeView();
             this.groupBox1.SuspendLayout();
             this.grpFilter.SuspendLayout();
             this.grpTreeButtons.SuspendLayout();
@@ -60,12 +64,12 @@
             this.txtMetaDataStoreLocation.Location = new System.Drawing.Point(6, 41);
             this.txtMetaDataStoreLocation.Name = "txtMetaDataStoreLocation";
             this.txtMetaDataStoreLocation.ReadOnly = true;
-            this.txtMetaDataStoreLocation.Size = new System.Drawing.Size(494, 20);
+            this.txtMetaDataStoreLocation.Size = new System.Drawing.Size(587, 20);
             this.txtMetaDataStoreLocation.TabIndex = 1;
             // 
             // cmdLoad
             // 
-            this.cmdLoad.Location = new System.Drawing.Point(439, 16);
+            this.cmdLoad.Location = new System.Drawing.Point(532, 16);
             this.cmdLoad.Name = "cmdLoad";
             this.cmdLoad.Size = new System.Drawing.Size(61, 23);
             this.cmdLoad.TabIndex = 2;
@@ -77,8 +81,9 @@
             // 
             this.TV.Location = new System.Drawing.Point(12, 198);
             this.TV.Name = "TV";
-            this.TV.Size = new System.Drawing.Size(392, 341);
+            this.TV.Size = new System.Drawing.Size(353, 341);
             this.TV.TabIndex = 3;
+            this.TV.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TV_AfterSelect);
             // 
             // label2
             // 
@@ -99,14 +104,14 @@
             this.groupBox1.Controls.Add(this.txtMetaDataStoreLocation);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(511, 74);
+            this.groupBox1.Size = new System.Drawing.Size(599, 74);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Load Metadata store ";
             // 
             // cmdLoadDemoData
             // 
-            this.cmdLoadDemoData.Location = new System.Drawing.Point(241, 16);
+            this.cmdLoadDemoData.Location = new System.Drawing.Point(334, 16);
             this.cmdLoadDemoData.Name = "cmdLoadDemoData";
             this.cmdLoadDemoData.Size = new System.Drawing.Size(95, 23);
             this.cmdLoadDemoData.TabIndex = 8;
@@ -116,7 +121,7 @@
             // 
             // cmdDebugForm
             // 
-            this.cmdDebugForm.Location = new System.Drawing.Point(174, 16);
+            this.cmdDebugForm.Location = new System.Drawing.Point(267, 16);
             this.cmdDebugForm.Name = "cmdDebugForm";
             this.cmdDebugForm.Size = new System.Drawing.Size(61, 23);
             this.cmdDebugForm.TabIndex = 7;
@@ -127,7 +132,7 @@
             // cmdImport
             // 
             this.cmdImport.Enabled = false;
-            this.cmdImport.Location = new System.Drawing.Point(372, 16);
+            this.cmdImport.Location = new System.Drawing.Point(465, 16);
             this.cmdImport.Name = "cmdImport";
             this.cmdImport.Size = new System.Drawing.Size(61, 23);
             this.cmdImport.TabIndex = 6;
@@ -138,7 +143,7 @@
             // 
             this.grpFilter.Controls.Add(this.checkBox5);
             this.grpFilter.Controls.Add(this.chkShowModelCount);
-            this.grpFilter.Controls.Add(this.checkBox3);
+            this.grpFilter.Controls.Add(this.chkShowLayer);
             this.grpFilter.Controls.Add(this.checkBox2);
             this.grpFilter.Controls.Add(this.checkBox1);
             this.grpFilter.Controls.Add(this.chkShowVersion);
@@ -146,7 +151,7 @@
             this.grpFilter.Enabled = false;
             this.grpFilter.Location = new System.Drawing.Point(12, 92);
             this.grpFilter.Name = "grpFilter";
-            this.grpFilter.Size = new System.Drawing.Size(511, 100);
+            this.grpFilter.Size = new System.Drawing.Size(599, 100);
             this.grpFilter.TabIndex = 6;
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = " Filter ";
@@ -172,15 +177,16 @@
             this.chkShowModelCount.UseVisualStyleBackColor = true;
             this.chkShowModelCount.CheckedChanged += new System.EventHandler(this.FilterCheckboxes_CheckedChanged);
             // 
-            // checkBox3
+            // chkShowLayer
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(285, 19);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(186, 17);
-            this.checkBox3.TabIndex = 12;
-            this.checkBox3.Text = "TODO: Show layer in model name";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.chkShowLayer.AutoSize = true;
+            this.chkShowLayer.Location = new System.Drawing.Point(285, 19);
+            this.chkShowLayer.Name = "chkShowLayer";
+            this.chkShowLayer.Size = new System.Drawing.Size(149, 17);
+            this.chkShowLayer.TabIndex = 12;
+            this.chkShowLayer.Text = "Show layer in model name";
+            this.chkShowLayer.UseVisualStyleBackColor = true;
+            this.chkShowLayer.CheckedChanged += new System.EventHandler(this.FilterCheckboxes_CheckedChanged);
             // 
             // checkBox2
             // 
@@ -249,9 +255,9 @@
             this.grpTreeButtons.Controls.Add(this.cmdExpandAll);
             this.grpTreeButtons.Controls.Add(this.cmdExpandPackages);
             this.grpTreeButtons.Enabled = false;
-            this.grpTreeButtons.Location = new System.Drawing.Point(410, 198);
+            this.grpTreeButtons.Location = new System.Drawing.Point(498, 198);
             this.grpTreeButtons.Name = "grpTreeButtons";
-            this.grpTreeButtons.Size = new System.Drawing.Size(113, 172);
+            this.grpTreeButtons.Size = new System.Drawing.Size(113, 84);
             this.grpTreeButtons.TabIndex = 12;
             // 
             // label1
@@ -270,13 +276,13 @@
             this.txtMessages.Name = "txtMessages";
             this.txtMessages.ReadOnly = true;
             this.txtMessages.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtMessages.Size = new System.Drawing.Size(511, 65);
+            this.txtMessages.Size = new System.Drawing.Size(599, 65);
             this.txtMessages.TabIndex = 8;
             // 
             // chkShowDebugMessages
             // 
             this.chkShowDebugMessages.AutoSize = true;
-            this.chkShowDebugMessages.Location = new System.Drawing.Point(387, 564);
+            this.chkShowDebugMessages.Location = new System.Drawing.Point(475, 564);
             this.chkShowDebugMessages.Name = "chkShowDebugMessages";
             this.chkShowDebugMessages.Size = new System.Drawing.Size(136, 17);
             this.chkShowDebugMessages.TabIndex = 15;
@@ -284,11 +290,47 @@
             this.chkShowDebugMessages.UseVisualStyleBackColor = true;
             this.chkShowDebugMessages.CheckedChanged += new System.EventHandler(this.chkShowDebugMessages_CheckedChanged);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(371, 289);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "Package details:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(374, 415);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(72, 13);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Model details:";
+            // 
+            // tvPackageDetails
+            // 
+            this.tvPackageDetails.Location = new System.Drawing.Point(374, 305);
+            this.tvPackageDetails.Name = "tvPackageDetails";
+            this.tvPackageDetails.Size = new System.Drawing.Size(237, 98);
+            this.tvPackageDetails.TabIndex = 18;
+            // 
+            // tvModelDetails
+            // 
+            this.tvModelDetails.Location = new System.Drawing.Point(374, 431);
+            this.tvModelDetails.Name = "tvModelDetails";
+            this.tvModelDetails.Size = new System.Drawing.Size(237, 108);
+            this.tvModelDetails.TabIndex = 19;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 658);
+            this.ClientSize = new System.Drawing.Size(623, 658);
+            this.Controls.Add(this.tvModelDetails);
+            this.Controls.Add(this.tvPackageDetails);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.chkShowDebugMessages);
             this.Controls.Add(this.txtMessages);
             this.Controls.Add(this.label1);
@@ -322,7 +364,7 @@
         private System.Windows.Forms.Button cmdExpandAll;
         private System.Windows.Forms.Button cmdExpandPackages;
         private System.Windows.Forms.Panel grpTreeButtons;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox chkShowLayer;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox5;
@@ -331,6 +373,10 @@
         private System.Windows.Forms.TextBox txtMessages;
         private System.Windows.Forms.CheckBox chkShowDebugMessages;
         private System.Windows.Forms.Button cmdLoadDemoData;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TreeView tvPackageDetails;
+        private System.Windows.Forms.TreeView tvModelDetails;
     }
 }
 

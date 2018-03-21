@@ -46,15 +46,15 @@ namespace AXBusiness.D365MetaExplorer.Core
             MetaDataStore store = new MetaDataStore();
 
             Package p1 = new Package("System Base");
-            p1.Models.Add(new Model("ModelBase1") { DisplayName = "Model Base-1" });
-            p1.Models.Add(new Model("ModelBase2") { DisplayName = "Model Base-2" });
+            p1.Models.Add(new Model("ModelBase1") { DisplayName = "Model Base-1", Layer = new Layer("SYS") });
+            p1.Models.Add(new Model("ModelBase2") { DisplayName = "Model Base-2", Layer = new Layer("SYS") });
             store.Packages.Add(p1);
 
             if (numPackages >= 2)
             {
                 Package p2 = new Package("System Foundation");
-                p2.Models.Add(new Model("ModelFound1") { DisplayName = "Model Foundation-1" });
-                p2.Models.Add(new Model("ModelFound2") { DisplayName = "Model Foundation-2" });
+                p2.Models.Add(new Model("ModelFound1") { DisplayName = "Model Foundation-1", Layer = new Layer("SYS") });
+                p2.Models.Add(new Model("ModelFound2") { DisplayName = "Model Foundation-2", Layer = new Layer("SYP") });
                 store.Packages.Add(p2);
                 ModuleReference ref2 = new ModuleReference { Name = p1.AssemblyName, ReferencedPackage = p1 };
                 p2.Models[0].ModuleReferences.Add(ref2);

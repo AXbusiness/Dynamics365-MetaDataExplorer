@@ -43,6 +43,7 @@
     <Compile Include="CoreCommonException.cs" />
     <Compile Include="DemoDataUtil.cs" />
     <Compile Include="DiagnosticMessage.cs" />
+    <Compile Include="Layer.cs" />
     <Compile Include="MetaDataStore.cs" />
     <Compile Include="MetaDataStoreLoader.cs" />
     <Compile Include="Model.cs" />
