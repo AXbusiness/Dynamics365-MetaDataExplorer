@@ -151,7 +151,7 @@ namespace AXBusiness.D365MetaExplorer.Core
             e = root["Layer"];
             if (e != null)
             {
-                m.Layer = new Layer(e.InnerText);
+                m.Layer = new Layer(int.Parse(e.InnerText));
             }
             e = root["Locked"];
             if (e != null)
