@@ -45,5 +45,20 @@ namespace AXBusiness.D365MetaExplorer.Core
         {
             OriginLocation = path;
         }
+
+        public Package GetPackageForModel(Model model)
+        {
+            foreach (Package p in Packages)
+            {
+                foreach (Model m in p.Models)
+                {
+                    if (m.Id == model.Id)
+                    {
+                        return p;
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

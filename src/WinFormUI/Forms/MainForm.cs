@@ -119,13 +119,26 @@ namespace AXBusiness.D365MetaExplorer.WinFormUI
 
             if (TV.SelectedNode != null)
             {
+                Package package = null;
+                Model model = null;
+
                 if (TV.SelectedNode.Tag is Package)
                 {
-                    populatePackageDetail(TV.SelectedNode.Tag as Package);
+                    package = TV.SelectedNode.Tag as Package;
                 }
-                else if (TV.SelectedNode.Tag is Model)
+                if (TV.SelectedNode.Tag is Model)
                 {
-                    populateModelDetail(TV.SelectedNode.Tag as Model);
+                    model = TV.SelectedNode.Tag as Model;
+                    package = metaDataStore.GetPackageForModel(model);
+                }
+
+                if (package != null)
+                {
+                    populatePackageDetail(package);
+                }
+                if (model != null)
+                {
+                    populateModelDetail(model);
                 }
             }
         }
